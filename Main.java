@@ -25,15 +25,14 @@ class gui {
 
         //Define button to get points
         JButton butt = new JButton("Get Beans");
-
         class MyCoolActionListener implements ActionListener {
-            int points = 0;
+            public int points = 0;
             public void actionPerformed (ActionEvent arg0) {
                     points = points +1;
                     l.setText(Integer.toString(points));
                     pan.add(l);
                     mb.add(pan);
-                }
+            }
             public int getpoints() {
                 return points;
             }
@@ -42,6 +41,16 @@ class gui {
         MyCoolActionListener al = new MyCoolActionListener();
         butt.addActionListener(al);
         al.getpoints();
+
+        class MyCoolActionListener2 extends MyCoolActionListener implements ActionListener {
+            @Override
+            public void actionPerformed (ActionEvent arg1) {
+                points = points -5;
+            }
+        }
+
+        MyCoolActionListener al2 = new MyCoolActionListener();
+        m11.addActionListener(al2);
 
         //Adding Components to the frame.
         frame.getContentPane().add(BorderLayout.NORTH, mb);
