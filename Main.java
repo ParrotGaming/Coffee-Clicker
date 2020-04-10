@@ -23,33 +23,58 @@ class gui {
         pan.add(l);
         mb.add(pan);
 
-        //Define button to get points
-        JButton butt = new JButton("Get Beans");
-        class MyCoolActionListener implements ActionListener {
-            private int points;
-            public void actionPerformed (ActionEvent arg0) {
-                points = points +1;
-                l.setText(Integer.toString(points));
-                pan.add(l);
-                mb.add(pan);
-            }
+        //Define Globals
+        class Globals {
+            private int points = 0;
+            private int grinders = 0;
             public int getpoints() {
                 return points;
             }
-            public void setpoints(int points) {
+            public void setpoints(int grinders) {
                 this.points = points;
+            }
+            public int getgrinders() {
+                return grinders;
+            }
+            public void setgrinders(int grinders) {
+                this.grinders = grinders;
+            }
+        }
+
+        Globals gv = new Globals();
+
+        //Define button to get points
+        JButton butt = new JButton("Get Beans");
+        class MyCoolActionListener implements ActionListener {
+            public void actionPerformed (ActionEvent arg0) {
+                gv.setpoints(1);
+                if(gv.getgrinders()>0) {
+                    gv.setpoints(gv.getpoints()+gv.getgrinders());
+                    System.out.println(gv.getgrinders());
+                    System.out.println(gv.getpoints());
+                }
+                l.setText(Integer.toString(gv.getpoints()));
+                pan.add(l);
+                mb.add(pan);    
             }
         }
 
         MyCoolActionListener al = new MyCoolActionListener();
         butt.addActionListener(al);
-        al.getpoints();
 
         class MyCoolActionListener2 implements ActionListener {
-            MyCoolActionListener sp = new MyCoolActionListener();
-            int x = sp.getpoints();
-            public void actionPerformed (ActionEvent arg0) {
-                sp.setpoints(x-5);
+            public void actionPerformed (ActionEvent ev) {
+                if(gv.getpoints()>4) {
+                    gv.setpoints(gv.getpoints()-5);
+                    l.setText(Integer.toString(gv.getpoints()));
+                    pan.add(l);
+                    mb.add(pan);
+                    gv.setgrinders(gv.getgrinders()+1);
+                }else {
+                    l.setText("You Don't Have Enough Beans!");
+                    pan.add(l);
+                    mb.add(pan);
+                }
             }
         }
 
