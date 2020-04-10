@@ -30,7 +30,7 @@ class gui {
             public int getpoints() {
                 return points;
             }
-            public void setpoints(int grinders) {
+            public void setpoints(int points) {
                 this.points = points;
             }
             public int getgrinders() {
@@ -47,11 +47,9 @@ class gui {
         JButton butt = new JButton("Get Beans");
         class MyCoolActionListener implements ActionListener {
             public void actionPerformed (ActionEvent arg0) {
-                gv.setpoints(1);
+                gv.setpoints(gv.getpoints() +1);
                 if(gv.getgrinders()>0) {
                     gv.setpoints(gv.getpoints()+gv.getgrinders());
-                    System.out.println(gv.getgrinders());
-                    System.out.println(gv.getpoints());
                 }
                 l.setText(Integer.toString(gv.getpoints()));
                 pan.add(l);
@@ -63,18 +61,32 @@ class gui {
         butt.addActionListener(al);
 
         class MyCoolActionListener2 implements ActionListener {
+            int gcost;
             public void actionPerformed (ActionEvent ev) {
-                if(gv.getpoints()>4) {
-                    gv.setpoints(gv.getpoints()-5);
+                boolean clicked = false;
+                if(gv.getgrinders() <=0) {
+                    gcost = 5;
+                } else if(gv.getpoints()>=gcost) {
+                    gcost = gcost * gv.getgrinders();
+                }
+                if(gv.getpoints()>=gcost) {
+                    gv.setpoints(gv.getpoints() -gcost);
                     l.setText(Integer.toString(gv.getpoints()));
                     pan.add(l);
                     mb.add(pan);
                     gv.setgrinders(gv.getgrinders()+1);
-                }else {
+                    clicked = true;
+                }else if(clicked = false){
                     l.setText("You Don't Have Enough Beans!");
                     pan.add(l);
                     mb.add(pan);
                 }
+                System.out.println();
+                System.out.println(gv.getpoints());
+                System.out.println();
+                System.out.println(gcost);
+                System.out.println();
+                System.out.println(gv.getgrinders());
             }
         }
 
