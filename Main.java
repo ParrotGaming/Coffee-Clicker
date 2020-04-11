@@ -15,6 +15,8 @@ class gui {
         mb.add(m1);
         JMenuItem m11 = new JMenuItem("Upgrade Grinder");
         m1.add(m11);
+        JMenuItem m12 = new JMenuItem("Hire Barista");
+        m1.add(m12);
 
         //Making the points visible
         JLabel l = new JLabel();
@@ -26,7 +28,8 @@ class gui {
         //Define Globals
         class Globals {
             private int points = 0;
-            private int grinders = 0;
+            private int grinders = 1;
+            private int baristas = 0;
             public int getpoints() {
                 return points;
             }
@@ -39,6 +42,12 @@ class gui {
             public void setgrinders(int grinders) {
                 this.grinders = grinders;
             }
+            public int getbaristas() {
+                return baristas;
+            }
+            public void setbaristas(int baristas) {
+                this.baristas = baristas;
+            }
         }
 
         Globals gv = new Globals();
@@ -48,8 +57,8 @@ class gui {
         class MyCoolActionListener implements ActionListener {
             public void actionPerformed (ActionEvent arg0) {
                 gv.setpoints(gv.getpoints() +1);
-                if(gv.getgrinders()>0) {
-                    gv.setpoints(gv.getpoints()+gv.getgrinders());
+                if(gv.getgrinders()>1) {
+                    gv.setpoints(gv.getpoints()+gv.getgrinders()-1);
                 }
                 l.setText(Integer.toString(gv.getpoints()));
                 pan.add(l);
@@ -61,37 +70,54 @@ class gui {
         butt.addActionListener(al);
 
         class MyCoolActionListener2 implements ActionListener {
-            int gcost;
+            int gcost = 5;
             public void actionPerformed (ActionEvent ev) {
                 boolean clicked = false;
-                if(gv.getgrinders() <=0) {
-                    gcost = 5;
-                } else if(gv.getpoints()>=gcost) {
-                    gcost = gcost * gv.getgrinders();
-                }
                 if(gv.getpoints()>=gcost) {
                     gv.setpoints(gv.getpoints() -gcost);
                     l.setText(Integer.toString(gv.getpoints()));
                     pan.add(l);
                     mb.add(pan);
                     gv.setgrinders(gv.getgrinders()+1);
-                    clicked = true;
-                }else if(clicked = false){
+                    if(gv.getgrinders() > 0) {
+                        gcost = 5 * gv.getgrinders();
+                    }
+                }else{
                     l.setText("You Don't Have Enough Beans!");
                     pan.add(l);
                     mb.add(pan);
                 }
-                System.out.println();
-                System.out.println(gv.getpoints());
-                System.out.println();
-                System.out.println(gcost);
-                System.out.println();
-                System.out.println(gv.getgrinders());
+                System.out.println("Gcost: "+gcost);
+            }
+        }
+
+        class MyCoolActionListener3 implements ActionListener {
+            int bcost = 10;
+            public void actionPerformed (ActionEvent ev) {
+                boolean clicked = false;
+                if(gv.getpoints()>=bcost) {
+                    gv.setpoints(gv.getpoints() -bcost);
+                    l.setText(Integer.toString(gv.getpoints()));
+                    pan.add(l);
+                    mb.add(pan);
+                    gv.setbaristas(gv.getbaristas()+1);
+                    if(gv.getbaristas() > 0) {
+                        bcost = 10 * gv.getbaristas();
+                    }
+                }else{
+                    l.setText("You Don't Have Enough Beans!");
+                    pan.add(l);
+                    mb.add(pan);
+                }
+                System.out.println("Bcost: "+bcost);
             }
         }
 
         MyCoolActionListener2 al2 = new MyCoolActionListener2();
         m11.addActionListener(al2);
+
+        MyCoolActionListener3 al3 = new MyCoolActionListener3();
+        m12.addActionListener(al3);
 
         //Adding Components to the frame.
         frame.getContentPane().add(BorderLayout.NORTH, mb);
