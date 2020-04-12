@@ -102,7 +102,7 @@ class gui {
                     mb.add(pan);
                     gv.setbaristas(gv.getbaristas()+1);
                     if(gv.getbaristas() > 0) {
-                        bcost = 10 * gv.getbaristas();
+                        bcost = bcost + gv.getgrinders() * 10;
                     }
                 }else{
                     l.setText("You Don't Have Enough Beans!");
@@ -123,5 +123,18 @@ class gui {
         frame.getContentPane().add(BorderLayout.NORTH, mb);
         frame.getContentPane().add(BorderLayout.SOUTH, butt);
         frame.setVisible(true);
+        while(true) {
+            try {
+                while (true) {
+                    gv.setpoints(gv.getpoints() +gv.getbaristas());
+                    l.setText(Integer.toString(gv.getpoints()));
+                    pan.add(l);
+                    mb.add(pan);
+                    Thread.sleep(2 * 1000);
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
