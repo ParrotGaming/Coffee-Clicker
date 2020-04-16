@@ -3,6 +3,10 @@ gui$1Globals.class
 gui$1MyCoolActionListener.class
 gui$1MyCoolActionListener2.class
 gui$1MyCoolActionListener3.class
+gui$1MyCoolActionListener4.class
+gui$1MyCoolActionListener5.class
 Main.mf
 Coffee-Clicker.jar
 builds/
+gui$1State.class
+Save.txt
