@@ -79,13 +79,23 @@ class gui {
                     BufferedReader reader = new BufferedReader(new FileReader("Save.txt"));
                     String line = reader.readLine();
                     int pos = 0;
+                    int result = Integer.parseInt(line);
                     while(line != null) {
-                        int result = Integer.parseInt(line);
                         if(pos == 0) {
                             gv.setpoints(result);
+                            l.setText(Integer.toString(gv.getpoints()));
+                            pan.add(l);
+                            mb.add(pan);
+                        }
+                        else if(pos == 1) {
+                            gv.setgrinders(result);
+                        }
+                        else if(pos == 2) {
+                            gv.setbaristas(result);
                         }
                         pos = pos +1;
                         line = reader.readLine();
+                        result = Integer.parseInt(line);
                     }
                 }catch(Exception e) {
 
@@ -175,7 +185,7 @@ class gui {
         m21.addActionListener(al4);
 
         MyCoolActionListener5 al5 = new MyCoolActionListener5();
-        m21.addActionListener(al5);
+        m22.addActionListener(al5);
 
         //Adding Components to the frame.
         frame.getContentPane().add(BorderLayout.NORTH, mb);
